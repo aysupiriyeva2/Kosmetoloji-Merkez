@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kosmetoloji Mərkəz</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f4f8ff;color:#17345b}
+header{background:#1459b8;color:white;padding:28px 18px;text-align:center}
+main{max-width:800px;margin:auto;padding:18px}
+h1{margin:5px 0}h2{color:#1559b7}
+.card{background:white;padding:17px;margin:12px 0;border-radius:15px;box-shadow:0 3px 14px #dce7f6}
+button,.btn{background:#1764c0;color:white;border:0;border-radius:10px;padding:12px 16px;font-size:16px;text-decoration:none;display:inline-block;margin:5px 3px;cursor:pointer}
+.item{display:block;width:100%;text-align:left;background:#edf4ff;color:#17477e}
+img{width:100%;height:170px;object-fit:cover;border-radius:12px}
+footer{text-align:center;padding:25px;background:#e1edff}
+</style>
+</head>
+<body>
+<header>
+<h1>Kosmetoloji Mərkəz</h1>
+<p>Kosmetoloq İlhamə Cəfəraliyeva</p>
+<p>Gözəlliyinizə peşəkar qayğı</p>
+</header>
+<main id="home">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80" alt="Üz baxımı">
+<h2>Xidmətlərimiz</h2>
+<p>Prosedurlar haqqında məlumat almaq üçün bölmə seçin.</p>
+</div>
+<div id="categories"></div>
+<div class="card">
+<h2>Əlaqə</h2>
+<p><b>Telefon:</b> +994 60 566 96 95</p>
+<p><b>Ünvan:</b> Naxçıvan şəhəri, Cahan Gənclər Şəhərciyi, A bloku, Access Bankın yanı.</p>
+<a class="btn" href="tel:+994605669695">Zəng et</a>
+</div>
+</main>
+<main id="detail" hidden>
+<div class="card">
+<button onclick="goHome()">← Geri</button>
+<h2 id="title"></h2>
+<img id="photo" alt="Prosedur şəkli">
+<p id="desc"></p>
+<p>Prosedurun uyğunluğu dəri vəziyyətindən və mütəxəssis qiymətləndirməsindən asılıdır. Nəticələr fərdi ola bilər.</p>
+<button onclick="next()">Növbəti prosedur →</button>
+<a class="btn" href="tel:+994605669695">Əlaqə saxla</a>
+</div>
+</main>
+<footer>© Kosmetoloji Mərkəz</footer>
+<script>
+const groups=[
+["Lazer prosedurları",["Lazer epilyasiya","Fraksional lazer","CO₂ lazer","Dəri ləkələrinin lazerlə azaldılması","Sızanaq izləri","Dəri cavanlaşdırılması","Tatuajın lazerlə silinməsi","Damar və kapilyarların lazerlə müalicəsi"]],
+["Üz baxımı və təmizlənməsi",["Üzün dərin təmizlənməsi","Mexaniki üz təmizlənməsi","Ultrasəs ilə üz təmizlənməsi","Hidrofasial (HydraFacial)","Qara nöqtələrin təmizlənməsi","Sızanaq və akne baxımı","Yağlı dəriyə qulluq","Quru və həssas dəriyə qulluq","Nəmləndirici üz baxımı"]],
+["Pilinq prosedurları",["TCA pilinq","Kimyəvi pilinq","Karbon pilinq","Süd turşusu pilinqi","Qlikol turşusu pilinqi","Ləkələrə qarşı pilinq","Sızanaq izlərinə qarşı pilinq"]],
+["Dəri cavanlaşdırma",["Mezoterapiya","Biorevitalizasiya","PRP (plazmaterapiya)","Mikroneedlinq","Dermapen proseduru","Kollagen stimullaşdırıcı prosedurlar","Dəri elastikliyinə yönəlmiş baxım","Göz ətrafı dəriyə qulluq"]]
+];
+let all=[];
+const root=document.getElementById('categories');
+groups.forEach(g=>{
+let c=document.createElement('section');c.className='card';
+c.innerHTML='<h2>'+g[0]+'</h2>';
+g[1].forEach(n=>{all.push(n);let b=document.createElement('button');b.className='item';b.textContent='➜ '+n;b.onclick=()=>show(n);c.appendChild(b)});
+root.appendChild(c);
+});
+let current=0;
+function show(n){current=all.indexOf(n);document.getElementById('home').hidden=true;document.getElementById('detail').hidden=false;document.getElementById('title').textContent=n;document.getElementById('desc').textContent=n+' haqqında məlumat alın. Bu prosedurun uyğunluğu mütəxəssis konsultasiyası zamanı müəyyən edilir.';document.getElementById('photo').src='https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80';window.scrollTo(0,0)}
+function goHome(){document.getElementById('detail').hidden=true;document.getElementById('home').hidden=false}
+function next(){show(all[(current+1)%all.length])}
+</script>
+</body>
+</html>
